@@ -10,4 +10,4 @@ pluginManagement {
 }
 
 // Should match your modid
-rootProject.name = 'dark-title-bar-for-minecraft'
+rootProject.name = 'darkbar'
