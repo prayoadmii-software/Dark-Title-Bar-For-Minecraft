@@ -1,6 +1,4 @@
-package git.noobs_create.darkbar.client.controller;
-
-import git.noobs_create.darkbar.client.helper.DwmApi;
+package git.prayoadmii.darkbar.client.controller;
 
 import net.minecraft.client.Minecraft;
 
@@ -8,6 +6,8 @@ import org.lwjgl.glfw.GLFWNativeWin32;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.WinDef.HWND;
+
+import git.prayoadmii.darkbar.client.helper.DwmApi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

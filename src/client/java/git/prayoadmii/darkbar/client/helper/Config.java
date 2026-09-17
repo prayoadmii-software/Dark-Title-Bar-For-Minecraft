@@ -1,7 +1,9 @@
-package git.noobs_create.darkbar.client.helper;
+package git.prayoadmii.darkbar.client.helper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import git.prayoadmii.darkbar.client.helper.Config;
 
 import java.io.File;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package git.noobs_create.darkbar.client;
+package git.prayoadmii.darkbar.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import git.noobs_create.darkbar.client.controller.DarkBarCommands;
-import git.noobs_create.darkbar.client.controller.TitleBarController;
-import git.noobs_create.darkbar.client.helper.Config;
+import git.prayoadmii.darkbar.client.controller.DarkBarCommands;
+import git.prayoadmii.darkbar.client.controller.TitleBarController;
+import git.prayoadmii.darkbar.client.helper.Config;
 
 public class DarkBarMain implements ClientModInitializer {
     public static Config config;

@@ -17,10 +17,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"git.noobs_create.darkbar.client.DarkBarMain"
+			"git.prayoadmii.darkbar.client.DarkBarMain"
 		],
 		"modmenu": [
-			"git.noobs_create.darkbar.client.DarkBarModMenu"
+			"git.prayoadmii.darkbar.client.DarkBarModMenu"
 		]
 	},
 	"mixins": [],

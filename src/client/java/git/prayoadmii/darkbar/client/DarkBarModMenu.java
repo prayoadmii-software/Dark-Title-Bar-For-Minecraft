@@ -1,9 +1,9 @@
-package git.noobs_create.darkbar.client;
+package git.prayoadmii.darkbar.client;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 
-import git.noobs_create.darkbar.client.controller.DarkBarConfigScreen;
+import git.prayoadmii.darkbar.client.controller.DarkBarConfigScreen;
 
 public class DarkBarModMenu implements ModMenuApi {
     @Override
