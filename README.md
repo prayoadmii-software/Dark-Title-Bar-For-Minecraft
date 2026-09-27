@@ -1,17 +1,17 @@
 # **Dark Title Bar For Minecraft**
 
-**You're No Longer Need To Get Flashbang When You Look At Title Bar Anymore!**
+**You No Longer Need To Get Flashbanged When You Look At The Title Bar Anymore!**
 
 ---
 
 ## **Badges I Add For Fun :P**
 
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://raw.githubusercontent.com/Noob-s-Studio-Creations/Dark-Title-Bar-For-Minecraft/refs/heads/main/LICENSE)
-[![Discord](https://img.shields.io/badge/Suggetions!-white?logo=discord&style=social)](https://discord.gg/vkFJhzFmYY)
+[![License](https://img.shields.io/badge/License-MIT-blue)](https://raw.githubusercontent.com/prayoadmii-software/Dark-Title-Bar-For-Minecraft/refs/heads/main/LICENSE)
+[![Discord](https://img.shields.io/badge/Suggetions!-white?logo=discord&style=social)](http://discord.prayoadmii.qzz.io/)
 
 ---
 
-### **This Mod Only Work In Windows With Versions Bellow**
+### **This Mod Only Work In Windows With Versions Below**
 - **Windows 10 1809+**
 - **Windows 11**
 
@@ -35,7 +35,7 @@
 
 **Well... This Mod Was Only On [Modrinth](https://modrinth.com/mod/darktitlebar-forminecraft) And [GitHub](https://github.com/Noob-s-Studio-Creations/Dark-Title-Bar-For-Minecraft)**
 
-**If You See This Someware Else... It's Might Be A Fork With A Slower Updating**
+**If You See This Somewhere Else... It Might Be A Fork With Slower Updates**
 
 ---
 
