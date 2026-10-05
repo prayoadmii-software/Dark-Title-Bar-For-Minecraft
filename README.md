@@ -21,11 +21,22 @@
 
 ---
 
+## **New In 1.2.0 And Newer Version Only!**
+
+**In 1.2.0 We Added Support For Server GUI (The One That Show Up When There's No nogui Args)**
+
+---
+
 ## **Requirements**
 
 - **Java 25**
 - **[Fabric API](https://modrinth.com/mod/fabric-api)**
-- **Fabric Loader 0.19.3+**
+- **Fabric Loader 0.19.5+**
+
+### **Optional Requirements**
+
+- **[Mod Menu](https://modrinth.com/mod/modmenu)**
+- **[YACL](https://modrinth.com/mod/yacl)**
 
 ## **Commands**
 
@@ -36,10 +47,6 @@
 **Well... This Mod Was Only On [Modrinth](https://modrinth.com/mod/darktitlebar-forminecraft) And [GitHub](https://github.com/Noob-s-Studio-Creations/Dark-Title-Bar-For-Minecraft)**
 
 **If You See This Somewhere Else... It Might Be A Fork With Slower Updates**
-
----
-
-**Thanks To [@fe0163](https://github.com/fe0163) For Being My Tester!**
 
 ---
 

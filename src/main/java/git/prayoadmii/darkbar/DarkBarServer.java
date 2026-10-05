@@ -35,20 +35,20 @@ public class DarkBarServer implements DedicatedServerModInitializer {
         }
 
         if (hasNoGuiArgument()) {
-            LOGGER.warn("DarkBar: Mod Will Be Disabled - `nogui` Was Passed In The Launch Command.");
+            LOGGER.warn("DarkBar: Mod Will Be Disabled - `nogui` Was Passed In The Launch Command");
 
             return;
         }
 
         if (GraphicsEnvironment.isHeadless()) {
-            LOGGER.warn("DarkBar: Mod Will Be Disabled - The Server Cannot Start With A GUI In This Environment.");
+            LOGGER.warn("DarkBar: Mod Will Be Disabled - The Server Cannot Start With A GUI In This Environment");
             
             return;
         }
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             if (!TitleBarController.setDark(config.darkBarEnabled)) {
-                LOGGER.warn("DarkBar: Mod Will Be Disabled - The Server Could Not Start With A GUI Window.");
+                LOGGER.warn("DarkBar: Mod Will Be Disabled - The Server Could Not Start With A GUI Window");
             }
         });
 
@@ -71,17 +71,17 @@ public class DarkBarServer implements DedicatedServerModInitializer {
     private static int setDark(net.minecraft.commands.CommandSourceStack source, boolean enabled) {
         config.darkBarEnabled = enabled;
         config.save();
+
         boolean applied = TitleBarController.setDark(enabled);
-        String message = applied
-            ? "DarkBar set to " + (enabled ? "dark." : "light.")
-            : "DarkBar setting saved, but the title bar could not be updated. Check the server log.";
+        String message = applied ? "DarkBar Set To " + (enabled ? "Dark" : "Light") : "DarkBar Setting Saved But The Title Bar Could Not Be Updated Check The Server Log For More Info";
+
         source.sendSuccess(() -> Component.literal(message), false);
+
         return applied ? 1 : 0;
     }
 
     private static boolean hasNoGuiArgument() {
         if (ProcessHandle.current().info().arguments().map(arguments -> Arrays.stream(arguments).anyMatch(argument -> NO_GUI_ARGUMENT.matcher(argument).matches())).orElse(false)) {
-
             return true;
         }
 
