@@ -38,17 +38,14 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
-
 	mods {
 		"dark-title-bar-for-minecraft" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 		}
 	}
 
 	runs {
-		client {			
+		client {
 			programArg "--username=PrayoadMii"
 		}
 	}

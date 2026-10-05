@@ -14,13 +14,16 @@
 	},
 	"license": "MIT License",
 	"icon": "assets/mod-icon.png",
-	"environment": "client",
+	"environment": "*",
 	"entrypoints": {
 		"client": [
-			"git.prayoadmii.darkbar.client.DarkBarMain"
+			"git.prayoadmii.darkbar.DarkBarMain"
+		],
+		"server": [
+			"git.prayoadmii.darkbar.DarkBarServer"
 		],
 		"modmenu": [
-			"git.prayoadmii.darkbar.client.DarkBarModMenu"
+			"git.prayoadmii.darkbar.DarkBarModMenu"
 		]
 	},
 	"mixins": [],
@@ -36,7 +39,9 @@
 		"fabricloader": ">=0.19.5",
 		"minecraft": "~26.3",
 		"java": ">=25",
-		"fabric-api": "*",
+		"fabric-api": "*"
+	},
+	"recommends": {
 		"yet_another_config_lib_v3": "*",
 		"modmenu": "*"
 	}
