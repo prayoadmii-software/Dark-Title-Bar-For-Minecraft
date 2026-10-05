@@ -19,15 +19,19 @@ import git.prayoadmii.darkbar.helper.Config;
 
 public class DarkBarServer implements DedicatedServerModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("DarkBar");
+
     private static final Pattern NO_GUI_ARGUMENT = Pattern.compile("^(--)?nogui$", Pattern.CASE_INSENSITIVE);
+
     private static Config config;
 
     @Override
     public void onInitializeServer() {
         config = Config.load();
+
         registerConsoleCommands();
 
         String os = System.getProperty("os.name", "").toLowerCase();
+
         if (!os.contains("win")) {
             LOGGER.warn("DarkBar: Server GUI Theme Was Skipped! Make Sure You're On Windows!");
 
@@ -70,6 +74,7 @@ public class DarkBarServer implements DedicatedServerModInitializer {
 
     private static int setDark(net.minecraft.commands.CommandSourceStack source, boolean enabled) {
         config.darkBarEnabled = enabled;
+        
         config.save();
 
         boolean applied = TitleBarController.setDark(enabled);

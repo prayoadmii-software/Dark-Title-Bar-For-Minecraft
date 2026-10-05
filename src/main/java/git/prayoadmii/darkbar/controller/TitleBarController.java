@@ -22,6 +22,7 @@ public class TitleBarController {
 
     public static boolean setDark(boolean enabled) {
         String os = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
+
         if (!os.contains("win")) {
             LOGGER.warn("DarkBar: Theme Apply Was Skipped! You Have To Run The Mod On Windows Machine!");
 
@@ -30,17 +31,21 @@ public class TitleBarController {
 
         try {
             long hwnd = getWindowHandle();
+
             if (hwnd == 0L) {
-                LOGGER.warn("DarkBar: No Visible Windows Window Owned By This Process Was Found.");
+                LOGGER.warn("DarkBar: No Visible Windows Window Owned By This Process Was Found!");
 
                 return false;
             }
 
             HWND nativeWindow = new HWND(new Pointer(hwnd));
+
             int[] value = { enabled ? 1 : 0 };
+
             int result = DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, 4);
+
             if (result < 0) {
-                LOGGER.error("Failed To Apply Title Bar Theme. DwmSetWindowAttribute Returned HRESULT 0x{}.", Integer.toHexString(result).toUpperCase(Locale.ROOT));
+                LOGGER.error("Failed To Apply Title Bar Theme! DwmSetWindowAttribute Returned HRESULT 0x{}", Integer.toHexString(result).toUpperCase(Locale.ROOT));
 
                 return false;
             }
@@ -131,7 +136,7 @@ public class TitleBarController {
         long handle = minecraftWindow[0] != 0L ? minecraftWindow[0] : firstWindow[0];
 
         if (handle != 0L) {
-            LOGGER.info("Found server GUI window handle 0x{}", Long.toHexString(handle).toUpperCase(Locale.ROOT));
+            LOGGER.info("Found Server GUI Window Handle 0x{}", Long.toHexString(handle).toUpperCase(Locale.ROOT));
         }
         
         return handle;
