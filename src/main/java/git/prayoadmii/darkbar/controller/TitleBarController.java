@@ -18,13 +18,13 @@ public class TitleBarController {
     private static final Logger LOGGER = LoggerFactory.getLogger("DarkBar");
     private static final int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
 
-    public static void setDark(boolean enabled) {
+    public static boolean setDark(boolean enabled) {
         String os = System.getProperty("os.name", "").toLowerCase();
 
         if (!os.contains("win")) {
             LOGGER.warn("DarkBar: Theme Apply Was Skipped! You Have To Run The Mod On Windows Machine!");
 
-            return;
+            return false;
         }
 
         try {
@@ -33,7 +33,7 @@ public class TitleBarController {
             if (hwnd == 0L) {
                 LOGGER.warn("DarkBar: No Windows Window Was Found To Apply The Theme To.");
 
-                return;
+                return false;
             }
 
             HWND nativeWindow = new HWND(new Pointer(hwnd));
@@ -42,8 +42,10 @@ public class TitleBarController {
             DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, 4);
 
             LOGGER.info("Title Bar Theme Was Set To {}", enabled ? "Dark" : "Light");
+            return true;
         } catch (Throwable t) {
             LOGGER.error("Failed To Apply Title Bar Theme As:", t);
+            return false;
         }
     }
 

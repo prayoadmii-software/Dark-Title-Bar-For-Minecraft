@@ -7,8 +7,6 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
-import git.prayoadmii.darkbar.controller.DarkBarConfigScreen;
-import git.prayoadmii.darkbar.controller.TitleBarController;
 import git.prayoadmii.darkbar.DarkBarMain;
 
 public class DarkBarCommands {
@@ -46,6 +44,7 @@ public class DarkBarCommands {
                                 DarkBarConfigScreen.create(null)
                             )
                         );
+                        
                         return 1;
                     })
                 )
