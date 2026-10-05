@@ -5,7 +5,11 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +20,12 @@ import git.prayoadmii.darkbar.helper.Config;
 public class DarkBarServer implements DedicatedServerModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("DarkBar");
     private static final Pattern NO_GUI_ARGUMENT = Pattern.compile("^(--)?nogui$", Pattern.CASE_INSENSITIVE);
+    private static Config config;
 
     @Override
     public void onInitializeServer() {
-        DarkBarMain.config = Config.load();
+        config = Config.load();
+        registerConsoleCommands();
 
         String os = System.getProperty("os.name", "").toLowerCase();
         if (!os.contains("win")) {
@@ -41,12 +47,33 @@ public class DarkBarServer implements DedicatedServerModInitializer {
         }
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            if (!TitleBarController.setDark(DarkBarMain.config.darkBarEnabled)) {
+            if (!TitleBarController.setDark(config.darkBarEnabled)) {
                 LOGGER.warn("DarkBar: Mod Will Be Disabled - The Server Could Not Start With A GUI Window.");
             }
         });
 
         LOGGER.info("Server Initialized Successfully!");
+    }
+
+    private static void registerConsoleCommands() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) ->
+            dispatcher.register(
+                Commands.literal("darkbar")
+                    .requires(source -> source.getEntity() == null && source.getTextName().equals("Server"))
+                    .then(Commands.literal("dark")
+                        .executes(context -> setDark(context.getSource(), true)))
+                    .then(Commands.literal("light")
+                        .executes(context -> setDark(context.getSource(), false)))
+            )
+        );
+    }
+
+    private static int setDark(net.minecraft.commands.CommandSourceStack source, boolean enabled) {
+        config.darkBarEnabled = enabled;
+        config.save();
+        TitleBarController.setDark(enabled);
+        source.sendSuccess(() -> Component.literal("DarkBar set to " + (enabled ? "dark." : "light.")), false);
+        return 1;
     }
 
     private static boolean hasNoGuiArgument() {
