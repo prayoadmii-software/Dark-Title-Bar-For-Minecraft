@@ -71,9 +71,12 @@ public class DarkBarServer implements DedicatedServerModInitializer {
     private static int setDark(net.minecraft.commands.CommandSourceStack source, boolean enabled) {
         config.darkBarEnabled = enabled;
         config.save();
-        TitleBarController.setDark(enabled);
-        source.sendSuccess(() -> Component.literal("DarkBar set to " + (enabled ? "dark." : "light.")), false);
-        return 1;
+        boolean applied = TitleBarController.setDark(enabled);
+        String message = applied
+            ? "DarkBar set to " + (enabled ? "dark." : "light.")
+            : "DarkBar setting saved, but the title bar could not be updated. Check the server log.";
+        source.sendSuccess(() -> Component.literal(message), false);
+        return applied ? 1 : 0;
     }
 
     private static boolean hasNoGuiArgument() {

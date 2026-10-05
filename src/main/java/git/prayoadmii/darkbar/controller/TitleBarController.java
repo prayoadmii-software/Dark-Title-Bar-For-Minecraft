@@ -1,13 +1,15 @@
 package git.prayoadmii.darkbar.controller;
 
-import java.awt.Window;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.Locale;
 
 import org.lwjgl.glfw.GLFWNativeWin32;
 
 import com.sun.jna.Pointer;
+import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.platform.win32.WinDef.HWND;
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinUser.WNDENUMPROC;
 
 import git.prayoadmii.darkbar.helper.DwmApi;
 
@@ -19,8 +21,7 @@ public class TitleBarController {
     private static final int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
 
     public static boolean setDark(boolean enabled) {
-        String os = System.getProperty("os.name", "").toLowerCase();
-
+        String os = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
         if (!os.contains("win")) {
             LOGGER.warn("DarkBar: Theme Apply Was Skipped! You Have To Run The Mod On Windows Machine!");
 
@@ -29,17 +30,18 @@ public class TitleBarController {
 
         try {
             long hwnd = getWindowHandle();
-
             if (hwnd == 0L) {
-                LOGGER.warn("DarkBar: No Windows Window Was Found To Apply The Theme To.");
-
+                LOGGER.warn("DarkBar: No Visible Windows Window Owned By This Process Was Found.");
                 return false;
             }
 
             HWND nativeWindow = new HWND(new Pointer(hwnd));
             int[] value = { enabled ? 1 : 0 };
-
-            DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, 4);
+            int result = DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, 4);
+            if (result < 0) {
+                LOGGER.error("Failed To Apply Title Bar Theme. DwmSetWindowAttribute Returned HRESULT 0x{}.", Integer.toHexString(result).toUpperCase(Locale.ROOT));
+                return false;
+            }
 
             LOGGER.info("Title Bar Theme Was Set To {}", enabled ? "Dark" : "Light");
             return true;
@@ -66,54 +68,57 @@ public class TitleBarController {
                 }
             }
         } catch (Throwable ignored) {
-            // No client window available yet; fall through to AWT server GUI detection below.
+            // A dedicated server has no Minecraft client window; resolve its GUI through User32.
         }
 
-        for (Window window : Window.getWindows()) {
-            long hwnd = getAwtWindowHandle(window);
-            if (hwnd != 0L) {
-                return hwnd;
-            }
-        }
-
-        return 0L;
+        return getCurrentProcessWindowHandle();
     }
 
-    private static long getAwtWindowHandle(Window window) {
-        if (window == null || !window.isShowing()) {
-            return 0L;
+    private static long getCurrentProcessWindowHandle() {
+        User32 user32 = User32.INSTANCE;
+        int processId = Kernel32.INSTANCE.GetCurrentProcessId();
+        long[] firstWindow = { 0L };
+        long[] minecraftWindow = { 0L };
+
+        user32.EnumWindows((WNDENUMPROC) (window, data) -> {
+            if (!user32.IsWindowVisible(window)) {
+                return true;
+            }
+
+            IntByReference windowProcessId = new IntByReference();
+            user32.GetWindowThreadProcessId(window, windowProcessId);
+            if (windowProcessId.getValue() != processId) {
+                return true;
+            }
+
+            int titleLength = user32.GetWindowTextLength(window);
+            if (titleLength == 0) {
+                return true;
+            }
+
+            char[] titleBuffer = new char[titleLength + 1];
+            user32.GetWindowText(window, titleBuffer, titleBuffer.length);
+            String title = new String(titleBuffer).trim();
+            if (title.isEmpty()) {
+                return true;
+            }
+
+            if (firstWindow[0] == 0L) {
+                firstWindow[0] = Pointer.nativeValue(window.getPointer());
+            }
+
+            if (title.toLowerCase(Locale.ROOT).contains("minecraft")) {
+                minecraftWindow[0] = Pointer.nativeValue(window.getPointer());
+                return false;
+            }
+
+            return true;
+        }, null);
+
+        long handle = minecraftWindow[0] != 0L ? minecraftWindow[0] : firstWindow[0];
+        if (handle != 0L) {
+            LOGGER.info("Found server GUI window handle 0x{}", Long.toHexString(handle).toUpperCase(Locale.ROOT));
         }
-
-        try {
-            Field peerField = Window.class.getDeclaredField("peer");
-            peerField.setAccessible(true);
-            Object peer = peerField.get(window);
-            if (peer == null) {
-                return 0L;
-            }
-
-            for (Method method : peer.getClass().getMethods()) {
-                if (method.getName().equals("getHWnd") && method.getParameterCount() == 0) {
-                    Object result = method.invoke(peer);
-                    if (result instanceof Number number) {
-                        return number.longValue();
-                    }
-                }
-            }
-
-            for (Field field : peer.getClass().getDeclaredFields()) {
-                if (field.getType() == long.class || field.getType() == Long.class || field.getType().getSimpleName().equals("long")) {
-                    field.setAccessible(true);
-                    Object value = field.get(peer);
-                    if (value instanceof Number number) {
-                        return number.longValue();
-                    }
-                }
-            }
-        } catch (Throwable ignored) {
-            // The server GUI may still be starting up or use a different AWT peer implementation.
-        }
-
-        return 0L;
+        return handle;
     }
 }
