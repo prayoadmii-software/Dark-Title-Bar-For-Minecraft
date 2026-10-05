@@ -1,10 +1,10 @@
-package git.prayoadmii.darkbar.client.helper;
+package git.prayoadmii.darkbar.helper;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
-import git.prayoadmii.darkbar.client.helper.DwmApi;
+import git.prayoadmii.darkbar.helper.DwmApi;
 
 public interface DwmApi extends Library {
     DwmApi INSTANCE = Native.load("dwmapi", DwmApi.class);
