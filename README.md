@@ -4,6 +4,12 @@
 
 ---
 
+## **Please Update Your Game To Latest Version! (I'm Begging You Guys)**
+
+**If You Did Not Update Your Game You Will Miss Many Updates Of This Mod! So Please Do It!**
+
+---
+
 ## **Badges I Add For Fun :P**
 
 [![License](https://img.shields.io/badge/License-MIT-blue)](https://raw.githubusercontent.com/prayoadmii-software/Dark-Title-Bar-For-Minecraft/refs/heads/main/LICENSE)
