@@ -3,12 +3,12 @@
 	"id": "darkbar",
 	"version": "${version}",
 	"name": "Dark Title Bar For Minecraft",
-	"description": "Let's Save Your Eyes!\nThe Title Bar Will Not Flashbang At You Anymore!\n\n(But Don't Lag Minecraft Or It Will Turn White Again? XD btw If It Happened Blame Windows... Not Me!)",
+	"description": "Turn Your Minecraft Title Bar Into The Dark Mode!",
 	"authors": [
 		"PrayoadMii"
 	],
 	"contact": {
-		"homepage": "https://prayoadmii.qzz.io/",
+		"homepage": "https://modrinth.com/mod/darktitlebar-forminecraft",
 		"sources": "https://github.com/prayoadmii-software/Dark-Title-Bar-For-Minecraft",
 		"issues": "https://github.com/prayoadmii-software/Dark-Title-Bar-For-Minecraft/issues"
 	},
@@ -31,7 +31,7 @@
 		"modmenu": {
 			"links": {
 				"modmenu.modrinth": "https://modrinth.com/mod/darktitlebar-forminecraft",
-				"modmenu.discord": "https://discord.gg/vkFJhzFmYY"
+				"modmenu.discord": "https://discord.prayoadmii.qzz.io/"
 			}
 		}
 	},
