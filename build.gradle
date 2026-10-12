@@ -18,11 +18,9 @@ repositories {
 		url = "https://maven.fabricmc.net/"
 	}
 	maven {
-		url = "https://maven.terraformersmc.com/"
+		url = "https://repo.polyfrost.org/releases"
 	}
-	maven {
-		url = "https://maven.isxander.dev/releases"
-	}
+	google()
 
 	exclusiveContent {
         forRepository {
@@ -46,7 +44,11 @@ loom {
 
 	runs {
 		client {
+			runDir "run/client"
 			programArg "--username=PrayoadMii"
+		}
+		server {
+			runDir "run/server"
 		}
 	}
 }
@@ -66,11 +68,8 @@ dependencies {
 	implementation "net.java.dev.jna:jna:5.14.0"
 	implementation "net.java.dev.jna:jna-platform:5.14.0"
 
-	// YACL (Required)
-    implementation "dev.isxander:yet-another-config-lib:${yacl_version}"
-
-    // Mod Menu (Optional)
-    implementation "com.terraformersmc:modmenu:${modmenu_version}"
+	// OneConfig (Optional)
+	compileOnly "org.polyfrost.oneconfig:config-impl:${oneconfig_version}"
 }
 
 processResources {

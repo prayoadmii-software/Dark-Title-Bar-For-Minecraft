@@ -21,9 +21,6 @@
 		],
 		"server": [
 			"git.prayoadmii.darkbar.DarkBarServer"
-		],
-		"modmenu": [
-			"git.prayoadmii.darkbar.DarkBarModMenu"
 		]
 	},
 	"mixins": [],
@@ -42,7 +39,7 @@
 		"fabric-api": "*"
 	},
 	"recommends": {
-		"yet_another_config_lib_v3": "*",
+		"oneconfigv1": "*",
 		"modmenu": "*"
 	}
 }

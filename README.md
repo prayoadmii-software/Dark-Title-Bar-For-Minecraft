@@ -42,7 +42,7 @@
 ### **Optional Requirements**
 
 - **[Mod Menu](https://modrinth.com/mod/modmenu)**
-- **[YACL](https://modrinth.com/mod/yacl)**
+- **[OneConfig](https://modrinth.com/mod/oneconfig)**
 
 ## **Commands**
 

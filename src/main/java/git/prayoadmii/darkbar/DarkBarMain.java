@@ -2,6 +2,7 @@ package git.prayoadmii.darkbar;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,10 @@ public class DarkBarMain implements ClientModInitializer {
     public void onInitializeClient() {
         config = Config.load();
 
+        if (FabricLoader.getInstance().isModLoaded("oneconfigv1")) {
+            DarkBarOneConfigIntegration.initialize();
+        }
+
         ClientTickEvents.END_CLIENT_TICK.register(new OneTimeDarkBar());
 
         String os = System.getProperty("os.name", "").toLowerCase();
@@ -32,6 +37,17 @@ public class DarkBarMain implements ClientModInitializer {
         LOGGER.info("Client Initialized Successfully!");
 
         DarkBarCommands.register();
+    }
+
+    public static void setDark(boolean enabled) {
+        config.darkBarEnabled = enabled;
+        config.save();
+        
+        TitleBarController.setDark(enabled);
+
+        if (FabricLoader.getInstance().isModLoaded("oneconfigv1")) {
+            DarkBarOneConfigIntegration.setEnabled(enabled);
+        }
     }
 
     private static class OneTimeDarkBar implements ClientTickEvents.EndTick {
