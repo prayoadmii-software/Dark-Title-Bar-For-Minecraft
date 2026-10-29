@@ -15,6 +15,7 @@ public final class DarkBarOneConfig extends org.polyfrost.oneconfig.api.config.v
     public DarkBarOneConfig() {
         super(
             "darkbar",
+            "/assets/mod-icon.png",
             "Dark Title Bar For Minecraft",
             org.polyfrost.oneconfig.api.config.v1.Config.Category.VISUALS
         );
