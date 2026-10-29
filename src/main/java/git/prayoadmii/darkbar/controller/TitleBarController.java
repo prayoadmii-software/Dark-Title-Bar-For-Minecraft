@@ -42,7 +42,7 @@ public class TitleBarController {
 
             int[] value = { enabled ? 1 : 0 };
 
-            int result = DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, 4);
+            int result = DwmApi.INSTANCE.DwmSetWindowAttribute(nativeWindow, DWMWA_USE_IMMERSIVE_DARK_MODE, value, Integer.BYTES);
 
             if (result < 0) {
                 LOGGER.error("Failed To Apply Title Bar Theme! DwmSetWindowAttribute Returned HRESULT 0x{}", Integer.toHexString(result).toUpperCase(Locale.ROOT));
